@@ -16,6 +16,12 @@
     {{-- My Style --}}
     <link rel="stylesheet" href="/css/style.css">
     
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"]
+        {
+            display: none;
+        }
+    </style>
 
     <title>WPU Blog | {{ $title }}</title>
 </head>
