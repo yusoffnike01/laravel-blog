@@ -11,7 +11,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 class Post extends Model
 {
     use HasFactory, Sluggable;
-    protected $fillable =['title','category_id','slug' ,'excerpt', 'body', 'user_id'];
+    protected $fillable =['title','category_id','slug' ,'excerpt', 'body', 'user_id', 'image'];
     protected $with = ['category', 'author'];
  
     public function scopeFilter($query, array $filters)
