@@ -7,7 +7,7 @@
       </div>
 
       <div class="col-lg-8">
-  <form method="post" action="/dashboard/posts/{{$post->slug}}" class="mb-5">
+  <form method="post" action="/dashboard/posts/{{$post->slug}}" class="mb-5" enctype="multipart/form-data">
     @method('put')
     @csrf 
   <div class="mb-3">
@@ -44,6 +44,21 @@
    
   </div>
 
+    <div class="mb-3">
+  <label for="image" class="form-label">Post Image</label>
+  @if($post->image)
+  <img src="{{asset('storage/' . $post->image)}}" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+
+  @else
+  <img class="img-preview img-fluid mb-3 col-sm-5">
+  @endif
+  
+  <input class="form-control"  @error('image') is-invalid @enderror type="file" id="image" name="image" onchange="previewImage()">
+  @error('image')
+  <p class='text-danger'>{{$message}}</p>
+  @enderror
+</div>
+
 <div class="mb-3">
   <label for="body" class="form-label">Body</label> 
   @error('body')
@@ -69,5 +84,22 @@ fetch('/dashboard/posts/checkSlug?title=' +title.value)
       document.addEventListener('trix-file-accept', function(e){
         e.preventDefault();
       })
+
+
+            function previewImage()
+      {    
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+
+        oFReader.onload = function(oFREvent)
+        {
+          imgPreview.src = oFREvent.target.result;
+        }
+
+      } 
     </script>
 @endsection
